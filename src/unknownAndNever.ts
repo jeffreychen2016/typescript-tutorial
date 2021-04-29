@@ -15,7 +15,7 @@ if (typeof userInput === 'string') {
 
 // never type
 // unlike void type, when console.log the result of generateError funciton, you get nothing
-// when console.log void, you get undefined
+// when console.log the result of void returning function, you get undefined
 const generateError = (message: string, code: number) => {
     throw { message: message, errorCode: code }
 }
