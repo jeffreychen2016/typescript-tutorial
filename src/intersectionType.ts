@@ -36,7 +36,7 @@ interface IAdmin {
 
 interface IElevatedEmployee extends IEmployee, IAdmin { }
 
-const e2: ElevatedEmployee = {
+const e2: IElevatedEmployee = {
     name: 'Jeffrey',
     startDate: new Date(),
     privileges: ['delete-user']

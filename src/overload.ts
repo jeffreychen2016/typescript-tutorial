@@ -1,0 +1,20 @@
+type Combinable2 = string | number
+
+// here is how you defined funciton overload
+function add3(a: number, b: number): number;
+function add3(a: string, b: string): string;
+function add3(a: Combinable2, b: Combinable2) {
+    if (typeof a === 'string' || typeof b === 'string') {
+        return a.toString() + b.toString()
+    }
+
+    return a + b
+}
+
+const n1 = add3(1, 2) // it returns type of number instead of Combinable2 here
+const s1 = add3('a', 'b') // it returns type of string instead of Combinable2 here
+// why it is useful??
+// because without the method overload, the returning type will be Combinable2
+// which, you can not call the string or number methods in the return valule (eg. n1.toString())
+
+
