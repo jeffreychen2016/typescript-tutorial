@@ -13,17 +13,24 @@ const registeredValidator = {};
 // it simply only registers the property to be validated later
 // the actual validation logic will be in the validate() function
 function Required(target, propName) {
+    var _a, _b;
     console.log(target.constructor.name);
     const className = target.constructor.name;
+    const validators = (_b = (_a = registeredValidator[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : [];
     // here, we add the property that is marked `required`
     // into the container to be validated later
     // Course: {titile: ['required']}
-    registeredValidator[className] = Object.assign(Object.assign({}, registeredValidator[className]), { [propName]: ['required'] });
+    registeredValidator[className] = Object.assign(Object.assign({}, registeredValidator[className]), { 
+        // one property could have multiple validators.
+        // spread the existing validators and add this `required` validator
+        [propName]: [...validators, 'required'] });
 }
 function PostiveNumber(target, propName) {
+    var _a, _b;
     const className = target.constructor.name;
+    const validators = (_b = (_a = registeredValidator[target.constructor.name]) === null || _a === void 0 ? void 0 : _a[propName]) !== null && _b !== void 0 ? _b : [];
     // Course: {price: ['postiveNumber']}
-    registeredValidator[className] = Object.assign(Object.assign({}, registeredValidator[className]), { [propName]: ['postiveNumber'] });
+    registeredValidator[className] = Object.assign(Object.assign({}, registeredValidator[className]), { [propName]: [...validators, 'postiveNumber'] });
 }
 function validate(obj) {
     console.log('this is the object that needs to be validated: ');

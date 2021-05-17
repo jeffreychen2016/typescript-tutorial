@@ -18,21 +18,25 @@ const registeredValidator: ValidatorConfig = {}
 function Required(target: any, propName: string) {
     console.log(target.constructor.name)
     const className = target.constructor.name
+    const validators = registeredValidator[target.constructor.name]?.[propName] ?? []
     // here, we add the property that is marked `required`
     // into the container to be validated later
     // Course: {titile: ['required']}
     registeredValidator[className] = {
         ...registeredValidator[className],
-        [propName]: ['required']
+        // one property could have multiple validators.
+        // spread the existing validators and add this `required` validator
+        [propName]: [...validators, 'required']
     }
 }
 
 function PostiveNumber(target: any, propName: string) {
     const className = target.constructor.name;
+    const validators = registeredValidator[target.constructor.name]?.[propName] ?? []
     // Course: {price: ['postiveNumber']}
     registeredValidator[className] = {
         ...registeredValidator[className],
-        [propName]: ['postiveNumber']
+        [propName]: [...validators, 'postiveNumber']
     }
 }
 
